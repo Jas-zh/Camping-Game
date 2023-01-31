@@ -7,15 +7,48 @@ public class GameManager : MonoBehaviour
 {
     bool EnteredHouse = false;
 
-    public float restartDelay = 1f;
+    bool EnteredGame = false;   
+
+    public float rDelay = 1f;
 
     public GameObject WalkingInUI;
 
+    public GameObject StartingGameUI;
+
+    bool GameEnded = false;
+
+    public float restartDelay = 2f;
     
     public void EnterCabin()
     {
         WalkingInUI.SetActive(true);
     }
     
-   
+    public void StartGame()
+    {
+        StartingGameUI.SetActive(true);
+    }
+
+    public void ExitGame()
+    {
+        StartingGameUI.SetActive(true);
+    }
+
+    public void EndGame()
+    {
+       if(GameEnded == false)
+        {
+            GameEnded = true;
+            Debug.Log("XD");
+            Invoke("Restart", rDelay);
+        }
+       
+    }
+
+    void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+
 }

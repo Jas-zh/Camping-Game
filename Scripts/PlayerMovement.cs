@@ -7,9 +7,11 @@ public class PlayerMovement : MonoBehaviour
 
     public CharacterController controller;
 
+
     public float speed = 12f;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
+    public float strenth = 100f;
 
 
     Vector3 velocity;
@@ -18,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+    public bool toggleOn = false;
     // Update is called once per frame
     void Update()
     {
@@ -43,6 +46,33 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+
+        if (Input.GetKey("left shift") && toggleOn == false && strenth > 2)
+        {
+            speed = 35;
+            toggleOn = true;
+            strenth--;
+           
+        }
+        else
+        {
+            speed = 12;
+            toggleOn = false;
+            while (strenth != 100 && strenth == 2)
+            {
+                strenth++;
+            }
+        }
+
+        if(transform.position.y < -7f)
+        {
+            FindObjectOfType<GameManager>().EndGame();
+        }
+
+
+
+
     }
+
 }
 
